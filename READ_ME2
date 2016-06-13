@@ -1,0 +1,44 @@
+demo：
+LimiterVO lVo = new LimiterVO("OrderOperateFacade","buyGoodsRequest");
+		LimiterUtils.call(new LimiterCall<Boolean>() {
+
+			@Override
+			public Boolean success() {
+				try {
+					int slp=0;
+					if(i<10000){
+						slp=(int)(Math.random()*2+1)*1000;
+					}else if(i>=10000 && i<50000){
+						slp=(int)(Math.random()*5+3)*1000;
+					}else{
+						slp=(int)(Math.random()*3+1)*1000;
+					}
+					
+					Thread.sleep(slp);
+					System.out.println("hu获得令牌了,并执行了");
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return true;
+			}
+
+			@Override
+			public Boolean fail() {
+				System.out.println("没有获得令牌了");
+				return false;
+			}
+			
+		}, new DBCall<BusiType>() {
+
+			@Override
+			public BusiType run(LimiterVO lvo) {
+				System.out.println("开始执行DB操作");
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+				}
+				System.out.println("结束执行DB操作");
+				return BusiType.WORRY;
+			}
+			
+		},lVo);
