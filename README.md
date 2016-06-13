@@ -8,7 +8,7 @@
 当然了，非着急的接口或者url也可以使用SemaPhore，这样限制性会更强，我这里只是使用了比较简单的方式，就新建一个RateLimiter
 
 DEMO：
-LimiterVO lVo = new LimiterVO("OrderOperateFacade","buyGoodsRequest");
+		LimiterVO lVo = new LimiterVO("OrderOperateFacade","buyGoodsRequest");
 		LimiterUtils.call(new LimiterCall<Boolean>() {
 
 			@Override
